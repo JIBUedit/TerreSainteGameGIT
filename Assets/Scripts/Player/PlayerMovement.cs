@@ -11,6 +11,7 @@ public class PlayerMovement : MonoBehaviour
     public bool isJumping = false;
     public bool isGrounded = false;
     public bool canMove = true;
+    public bool onStairs = false;
 
     public Transform groundCheck;
     public float groundCheckRadius;
@@ -47,7 +48,7 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
         var onStairs = false;
-        CheckStairs(out onStairs);
+        CheckStairs();
         if(onStairs)
         {
             rb.bodyType = RigidbodyType2D.Kinematic;
@@ -122,28 +123,21 @@ public class PlayerMovement : MonoBehaviour
         Gizmos.DrawWireSphere(groundCheck.position, groundCheckRadius);
     }
 
-    private void CheckStairs(out bool onStairs)
+    private void CheckStairs()
     {
-        var rayDistance = 10;
-        RaycastHit2D hit = Physics2D.Raycast(feetPosition.position, Vector2.down, rayDistance, LayerMask.NameToLayer("Player"));
-        if(hit.collider != null)
+        var rayDistance = 1;
+        RaycastHit2D hit = Physics2D.Raycast(feetPosition.position, Vector2.down, rayDistance, collisionLayers);
+        if (hit.collider != null && hit.collider.gameObject.layer == LayerMask.NameToLayer("Stairs"))
         {
-            Debug.Log(hit.collider.gameObject.layer);
-            if (hit.collider.gameObject.layer == LayerMask.NameToLayer("Stairs"))
-            {
-                Debug.Log("J'ai touché des escaliers");
-                onStairs = true;
-                return;
-            }
-            onStairs = false;
+            Debug.Log("J'ai touché des escaliers");
+            onStairs = true;
+            rb.gravityScale = 0; // Désactiver la gravité sur les escaliers
         }
         else
         {
-            Debug.Log("J'ai pas touché des escaliers");
+            Debug.Log("Je ne touche pas d'escaliers");
             onStairs = false;
+            rb.gravityScale = 4; // Réactiver la gravité
         }
     }
 }
-
-
-
