@@ -3,7 +3,7 @@ using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class PlayerMovement : MonoBehaviour
+public partial class PlayerMovement : MonoBehaviour
 {
     public float moveSpeed = 5f;
     public float jumpForce = 5f;
@@ -47,6 +47,8 @@ public class PlayerMovement : MonoBehaviour
     }
     void Update()
     {
+        CustomUpdate();
+
         var onStairs = false;
         CheckStairs();
         if(onStairs)
@@ -129,13 +131,13 @@ public class PlayerMovement : MonoBehaviour
         RaycastHit2D hit = Physics2D.Raycast(feetPosition.position, Vector2.down, rayDistance, collisionLayers);
         if (hit.collider != null && hit.collider.gameObject.layer == LayerMask.NameToLayer("Stairs"))
         {
-            Debug.Log("J'ai touché des escaliers");
+            //Debug.Log("J'ai touché des escaliers");
             onStairs = true;
             rb.gravityScale = 0; // Désactiver la gravité sur les escaliers
         }
         else
         {
-            Debug.Log("Je ne touche pas d'escaliers");
+            //Debug.Log("Je ne touche pas d'escaliers");
             onStairs = false;
             rb.gravityScale = 4; // Réactiver la gravité
         }

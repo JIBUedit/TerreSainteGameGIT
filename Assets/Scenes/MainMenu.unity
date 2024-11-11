@@ -1037,6 +1037,30 @@ PrefabInstance:
     m_TransformParent: {fileID: 1030262955}
     m_Modifications:
     - target: {fileID: 3458405004429282470, guid: 49aa82fdb3a47f248abe4b0fe6aba8cd, type: 3}
+      propertyPath: m_Colors.m_PressedColor.b
+      value: 0.6039216
+      objectReference: {fileID: 0}
+    - target: {fileID: 3458405004429282470, guid: 49aa82fdb3a47f248abe4b0fe6aba8cd, type: 3}
+      propertyPath: m_Colors.m_PressedColor.g
+      value: 0.6039216
+      objectReference: {fileID: 0}
+    - target: {fileID: 3458405004429282470, guid: 49aa82fdb3a47f248abe4b0fe6aba8cd, type: 3}
+      propertyPath: m_Colors.m_PressedColor.r
+      value: 0.6039216
+      objectReference: {fileID: 0}
+    - target: {fileID: 3458405004429282470, guid: 49aa82fdb3a47f248abe4b0fe6aba8cd, type: 3}
+      propertyPath: m_Colors.m_HighlightedColor.b
+      value: 0.8666667
+      objectReference: {fileID: 0}
+    - target: {fileID: 3458405004429282470, guid: 49aa82fdb3a47f248abe4b0fe6aba8cd, type: 3}
+      propertyPath: m_Colors.m_HighlightedColor.g
+      value: 0.8666667
+      objectReference: {fileID: 0}
+    - target: {fileID: 3458405004429282470, guid: 49aa82fdb3a47f248abe4b0fe6aba8cd, type: 3}
+      propertyPath: m_Colors.m_HighlightedColor.r
+      value: 0.8666667
+      objectReference: {fileID: 0}
+    - target: {fileID: 3458405004429282470, guid: 49aa82fdb3a47f248abe4b0fe6aba8cd, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1030262956}

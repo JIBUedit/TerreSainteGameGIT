@@ -88,7 +88,7 @@ public class TabinAttack : MonoBehaviour
         //Appliquer des dégâts
         foreach (Collider2D enemy in hitEnemies)
         {
-            enemy.GetComponent<FurryPillory>().TakeDamage(attackDamage);
+            enemy.GetComponent<IHealth>()?.TakeDamage(attackDamage);
         }
 
         if (playerMovement != null)

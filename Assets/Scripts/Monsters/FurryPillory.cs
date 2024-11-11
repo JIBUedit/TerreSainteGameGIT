@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class FurryPillory : MonoBehaviour, IDamageable
+public class FurryPillory : MonoBehaviour, IHealth
 {
     public Animator animator;
 
@@ -23,21 +23,29 @@ public class FurryPillory : MonoBehaviour, IDamageable
         clip.AddEvent(dogGrowlEvent);
     }
 
-    public void TakeDamage(float damageAmount)
+    public void TakeDamage(int damage)
     {
         if (audioSource.isPlaying)
         {
             audioSource.Stop();
         }
         audioSource.PlayOneShot(soundDamage);
-        currentHealth -= damageAmount;
+        //currentHealth -= damage;
 
         // Forcer le redémarrage de l'animation
         animator.Play("Furry Pillory Hit", -1, 0f);
     }
+    public void Heal(int hp)
+    {
 
-    // Fonction pour jouer le son de grognement de chien en boucle
-    void PlayDogGrowl()
+    }
+    public void IsDead(out bool dead)
+    {
+        dead = true;
+    }
+
+        // Fonction pour jouer le son de grognement de chien en boucle
+        void PlayDogGrowl()
     {
         if (!audioSource.isPlaying)
         {

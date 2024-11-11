@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-public class PlayerHealth : MonoBehaviour, IDamageable
+public class PlayerHealth : MonoBehaviour, IHealth
 {
     public int maxHealth = 20;
     public int currentHealth;
@@ -11,6 +11,7 @@ public class PlayerHealth : MonoBehaviour, IDamageable
     private bool isStunned = false; // Indicateur de période de stun
     private Rigidbody2D rb; // Pour arrêter le mouvement du joueur
     private PlayerMovement playerMovement; // Pour désactiver les actions de mouvement
+    private bool isDead;
 
     public static PlayerHealth instance;
 
@@ -27,6 +28,7 @@ public class PlayerHealth : MonoBehaviour, IDamageable
         }
 
         instance = this;
+        //healthBar = GetComponent<HealthBar>();
     }
 
     // Start is called before the first frame update
@@ -75,6 +77,14 @@ public class PlayerHealth : MonoBehaviour, IDamageable
         // Commence la période de stun
         StartCoroutine(Stun(0.1f));
     }
+    public void IsDead(out bool isDead)
+    {
+        isDead = true;
+    }
+    public void Heal(int hp)
+    {
+
+    }
 
     private IEnumerator Stun(float stunDuration)
     {
@@ -119,10 +129,5 @@ public class PlayerHealth : MonoBehaviour, IDamageable
         //PlayerMovement.instance.playerCollider.enabled = false;
 
         GameOverManager.instance.OnPlayerDeath();
-    }
-
-    public void TakeDamage(float damageAmount)
-    {
-        throw new System.NotImplementedException();
     }
 }

@@ -17,4 +17,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/SpawnScene2.unity
     guid: 22f80ca9917e5214e9fbc9bda11d1cce
+  - enabled: 1
+    path: Assets/Scenes/LevelCity.unity
+    guid: e12af1186aba9b1449b47cb87b70bda7
   m_configObjects: {}

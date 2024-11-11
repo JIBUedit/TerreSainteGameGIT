@@ -6,6 +6,11 @@ TagManager:
   tags:
   - PlayerSpawn
   - Fade
+  - PNJ
+  - Platform
+  - Map
+  - Enemy
+  - Wall
   layers:
   - Default
   - TransparentFX
@@ -17,8 +22,8 @@ TagManager:
   - Enemies
   - Wall
   - Stairs
-  - 
-  - 
+  - PNJ
+  - Map
   - 
   - 
   - 
