@@ -11,8 +11,9 @@ public class EndAttack : StateMachineBehaviour
 
         if (playerMovement != null)
         {
-            // Réactiver le mouvement à la fin de l'animation d'attaque
-            playerMovement.canMove = true;
+            if (GameManager.Instance.currentGameState == GameManager.GameState.Playing)
+                // Réactiver le mouvement à la fin de l'animation d'attaque
+                playerMovement.canMove = true;
         }
     }
 }

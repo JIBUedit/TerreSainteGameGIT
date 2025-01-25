@@ -39,19 +39,18 @@ public class TabinAttack : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // Ajuste la position de l'attackPoint selon le flip du sprite
-        if (playerMovement.spriteRenderer.flipX)
-        {  // Si le personnage est retourné à gauche
-            attackPoint.localPosition = new Vector2(-0.3f, attackPoint.localPosition.y);  // Utilisez le float ajusté
-        }
-        else
-        {  // Si le personnage fait face à droite
-            attackPoint.localPosition = new Vector2(0.3f, attackPoint.localPosition.y);  // Position normale
-        }
-
         // Si le joueur appuie sur Mouse0 et que le personnage est au sol
         if (Input.GetKeyDown(KeyCode.Mouse0) && playerMovement.isGrounded)
         {
+            // Ajuste la position de l'attackPoint selon le flip du sprite
+            if (playerMovement.spriteRenderer.flipX)
+            {  // Si le personnage est retourné à gauche
+                attackPoint.localPosition = new Vector2(-0.3f, attackPoint.localPosition.y);  // Utilisez le float ajusté
+            }
+            else
+            {  // Si le personnage fait face à droite
+                attackPoint.localPosition = new Vector2(0.3f, attackPoint.localPosition.y);  // Position normale
+            }
             Attack();
         }
     }
@@ -59,7 +58,7 @@ public class TabinAttack : MonoBehaviour
     void Attack()
     {
         // L'attaque commence
-        if (Input.GetKeyDown(KeyCode.Mouse0))
+        if (Input.GetKeyDown(KeyCode.Mouse0) && GameManager.Instance.currentGameState == GameManager.GameState.Playing)
         {
             if (canReceiveInput)
             {
@@ -93,6 +92,8 @@ public class TabinAttack : MonoBehaviour
 
         if (playerMovement != null)
         {
+            if (GameManager.Instance.currentGameState == GameManager.GameState.Playing)
+                Debug.Log("Playing");
             // Désactiver le mouvement
             playerMovement.canMove = false;
         }

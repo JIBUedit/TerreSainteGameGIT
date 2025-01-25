@@ -11,10 +11,13 @@ public class EndComboBehaviour : StateMachineBehaviour
     // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        // Réactiver le mouvement du joueur à la fin de l'attaque
-        TabinAttack.instance.playerMovement.canMove = true;
-        TabinAttack.instance.canReceiveInput = false; // Reset the input flag
-        TabinAttack.instance.inputReceived = false; // Reset the input flag
+        if (GameManager.Instance.currentGameState == GameManager.GameState.Playing)
+        {
+            // Réactiver le mouvement du joueur à la fin de l'attaque
+            TabinAttack.instance.playerMovement.canMove = true;
+            TabinAttack.instance.canReceiveInput = false; // Reset the input flag
+            TabinAttack.instance.inputReceived = false; // Reset the input flag
+        }
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks

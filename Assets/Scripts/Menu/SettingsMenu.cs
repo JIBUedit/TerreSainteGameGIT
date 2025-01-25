@@ -1,9 +1,8 @@
 using System.Collections.Generic;
-using Unity.VisualScripting;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.UI;
-using System.Linq;
 
 public class SettingsMenu : MonoBehaviour
 {
@@ -16,14 +15,23 @@ public class SettingsMenu : MonoBehaviour
     public Slider musicSlider;
     public Slider soundSlider;
 
+    private const string MusicVolumeKey = "MusicVolume";
+    private const string SoundVolumeKey = "SoundVolume";
+
     public void Start()
     {
-        audioMixer.GetFloat("Music", out float musicValueForSlider);
-        musicSlider.value = 1;
+        // Charger les valeurs sauvegardées ou définir les valeurs par défaut
+        float savedMusicVolume = PlayerPrefs.GetFloat(MusicVolumeKey, 1f); // Par défaut : 1
+        float savedSoundVolume = PlayerPrefs.GetFloat(SoundVolumeKey, 1f); // Par défaut : 1
 
-        audioMixer.GetFloat("Sound", out float soundValueForSlider);
-        soundSlider.value = 1;
+        // Appliquer les valeurs aux sliders et au mixer
+        musicSlider.value = savedMusicVolume;
+        soundSlider.value = savedSoundVolume;
 
+        SetVolume(savedMusicVolume);
+        SetSoundVolume(savedSoundVolume);
+
+        // Gestion des résolutions
         resolutions = Screen.resolutions.Select(resolution => new Resolution { width = resolution.width, height = resolution.height }).Distinct().ToArray();
         resolutionDropdown.ClearOptions();
 
@@ -47,14 +55,21 @@ public class SettingsMenu : MonoBehaviour
 
         Screen.fullScreen = true;
     }
+
     public void SetVolume(float volume)
     {
         audioMixer.SetFloat("Music", 20 * Mathf.Log10(volume));
+        // Sauvegarder la valeur
+        PlayerPrefs.SetFloat(MusicVolumeKey, volume);
     }
+
     public void SetSoundVolume(float volume)
     {
         audioMixer.SetFloat("Sound", 20 * Mathf.Log10(volume));
+        // Sauvegarder la valeur
+        PlayerPrefs.SetFloat(SoundVolumeKey, volume);
     }
+
     public void SetFullScreen(bool isFullScreen)
     {
         Screen.fullScreen = isFullScreen;

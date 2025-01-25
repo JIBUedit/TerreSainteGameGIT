@@ -45,13 +45,26 @@ public partial class PlayerMovement : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
     }
+
     void Update()
     {
+        if (GameManager.Instance.currentGameState == GameManager.GameState.VideoPlayer)
+        {
+            // Vérifie l'état du RawImage pour activer ou désactiver le mouvement
+            CheckRawImagePresence();
+        }
+
+        if (!canMove)
+        {
+            rb.velocity = Vector2.zero; // Arrête le joueur si le mouvement est désactivé.
+            return; // Bloque toute autre action.
+        }
+
         CustomUpdate();
 
         var onStairs = false;
         CheckStairs();
-        if(onStairs)
+        if (onStairs)
         {
             rb.bodyType = RigidbodyType2D.Kinematic;
         }
@@ -106,18 +119,20 @@ public partial class PlayerMovement : MonoBehaviour
         if (_velocity > 0.1f)
         {
             spriteRenderer.flipX = false;
-        } else if (_velocity < -0.1f)
+        }
+        else if (_velocity < -0.1f)
         {
             spriteRenderer.flipX = true;
         }
-
     }
+
     private void GroundCheck()
     {
         var test = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, collisionLayers); // ici il te sort un Collider2D
         isGrounded = test != null; // ici c'est un bool
         animator.SetBool("isJumping", !isGrounded);
     }
+
     private void OnDrawGizmos()
     {
         // Display the explosion radius when selected
@@ -141,5 +156,22 @@ public partial class PlayerMovement : MonoBehaviour
             onStairs = false;
             rb.gravityScale = 4; // Réactiver la gravité
         }
+    }
+
+    private void CheckRawImagePresence()
+    {
+        GameObject videoObject = GameObject.FindWithTag("VideoPlayer");
+
+        if (videoObject != null)
+        {
+            RawImage rawImage = videoObject.transform.GetChild(1).GetComponent<RawImage>();
+            if (rawImage != null && rawImage.gameObject.activeSelf)
+            {
+                canMove = false; // Désactive le mouvement si le RawImage est actif.
+                return;
+            }
+        }
+
+        canMove = true; // Active le mouvement si le RawImage est introuvable ou inactif.
     }
 }

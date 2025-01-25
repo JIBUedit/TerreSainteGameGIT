@@ -11,6 +11,7 @@ TagManager:
   - Map
   - Enemy
   - Wall
+  - VideoPlayer
   layers:
   - Default
   - TransparentFX
